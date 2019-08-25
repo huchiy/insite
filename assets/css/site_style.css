@@ -1,0 +1,257 @@
+/** ----- paykhan.html / 페이칸 ----- **/
+
+.paykhan .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.paykhan .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.paykhan .header_table .back .img {
+     width:50%;
+}
+
+.paykhan .header_table .join {
+     padding:2% 0 2% 22%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+.paykhan .poss_div {
+     border: solid #07c1f2;
+     border-radius: 2vw;
+     margin-top: 3vw;
+     margin-left: 2vw;
+     margin-right: 2vw;
+}
+
+.paykhan .poss_han {
+     width: 96%;
+     height: 30vw;
+
+}
+
+.paykhan .poss_han .name {
+     padding-left: 3vw;
+     width: 50vw;
+}
+
+.paykhan .poss_han .poss_value {
+     padding-left: 55vw;
+}
+
+.paykhan .poss_han .btn {
+     width: 15vw;
+     background: white;
+     font-weight: bold;
+     font-size:13px;
+     color: #07c1f2;
+     border-color: #acacac;
+     border-width: 1px;
+     border-style: solid;
+     border-radius: 2vw;
+     text-align: center;
+}
+
+.paykhan .poss_han_btn {
+     padding-left: 2vw;
+     padding-right: 2vw;
+}
+
+.paykhan .poss_han_btn .btn {
+     width: 44vw;
+     background: white;
+     font-weight: bold;
+     font-size:15px;
+     color: #07c1f2;
+     border-color: #acacac;
+     border-width: 1px;
+     border-style: solid;
+     border-radius: 1vw;
+     text-align: center;
+     padding-top: 1vw;
+     padding-bottom: 1vw;
+}
+
+.paykhan .use_paykhan_div {
+     border: solid #07c1f2;
+     border-radius: 2vw;
+     margin-top: 15vw;
+     margin-left: 2vw;
+     margin-right: 2vw;
+}
+
+.paykhan .use_paykhan {
+     border-radius: 2vw;
+     width: 96%;
+     height: 30vw;
+}
+
+.paykhan .use_paykhan .name {
+     padding-left: 3vw;
+     width: 50vw;
+}
+
+.paykhan .use_paykhan .value {
+     width: 20vw;
+}
+
+.paykhan .use_paykhan .poss_value {
+     padding-left: 55vw;
+}
+
+
+/** ----- paykhan.html / 페이칸 ----- **/
+
+
+
+/** ----- paykhan_history.html / 페이칸_거래내역 ----- **/
+
+.paykhan_history .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.paykhan_history .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.paykhan_history .header_table .back .img {
+     width:50%;
+}
+
+.paykhan_history .header_table .history {
+     padding:2% 0 2% 22%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+/** ----- paykhan_history.html / 페이칸_거래내역 ----- **/
+
+
+	.face_info.file_box img{border-radius:0px;}
+	.face_info.file_box{width:100%; }
+	.face_info .box{float:left; width:31%; margin:1%; position:relative; }
+	.face_info .file_delete{width:22px; height:22px; z-index:9999; position:absolute; bottom:10px; right:5px; }
+	.face_info .file_delete img{width:100%;}
+	.face_info .file_input_hidden{width:100%;height:100%; padding:0px; margin:0px;}
+
+/*170623 애견이미지*/
+.dog_image {width:100%;padding:0px;margin:10px 0 0 10px;}
+.dog_image div.box{float:left;width:calc(33% - 9px);margin-right:5px;text-align:center;}
+.dog_image div.box:nth-child(3n){margin-right:0;}
+.dog_image div.box img{width:100%;height:auto;max-height:100%;vertical-align:middle;}
+.dog_image2 {width:100%;padding:0px;margin:10px 0 0 10px;}
+.dog_image2 div.box{float:left;width:calc(33% - 9px);margin-top:5px;margin-right:5px;text-align:center;}
+.dog_image2 div.box:nth-child(3n){margin-right:0%;}
+.dog_image2 div.box img{width:60%;}
+.file_input_div {
+    position:relative;
+    width:80px;
+    overflow:hidden;
+}
+.file_input_hidden {
+    font-size:29px;
+    position:absolute;
+    right:0px;
+    top:0px;
+    opacity:0;
+    filter: alpha(opacity=0);
+    -ms-filter: alpha(opacity=0);
+    cursor:pointer;
+}
+/*170623 애견이미지*/
+
+
+/* 폰트수정 */
+/*──────────────── footer ────────────────*/
+#footer{position:relative; font-family: 'Roboto', sans-serif;  line-height:1.6em; text-align:center; margin:0 auto; padding:40px 0;}
+#footer .footer_container{position:relative; font-size:0; }
+#footer .copyrights{font-size:14px; font-weight:300;color:#474e67; display:inline-block;}
+#footer .footer_menu{display:inline-block; margin-left:45px;}
+#footer .footer_menu li{font-weight:300; font-size:14px; display:inline-block;}
+#footer .footer_menu li:after{display:inline-block; content:''; width:1px; height:10px; background:rgba(71,78,103,0.6); vertical-align:middle;  margin:0 10px;}
+#footer .footer_menu li:last-child:after{display:none;}
+#footer .footer_menu li a{opacity:0.8; display:inline-block; height:22px; line-height:22px; padding:0 5px; border-radius:4px; transition: all .15s ease-in-out;}
+#footer .footer_menu li a:hover{opacity:1; background:rgba(0,0,0,0.04);}
+#footer .footer_sns{position:relative; font-size:0; margin-top:20px;}
+#footer .footer_sns a{display:inline-block; text-align:center; width:36px; height:36px; line-height:36px; border-radius:50%;  background:rgba(71,78,103,0.5); margin-right:15px;  transition: all .2s ease-in-out;}
+#footer .footer_sns a:last-child{margin-right:0;}
+#footer .footer_sns a:hover{background:rgba(71,78,103,1); background:#12a79d;}
+#footer .footer_sns a:before{content:''; font-family:'intaeFont'; font-size:15px; color:#fff;}
+#footer .footer_sns .facebook:before{content:'\e1b5';}
+#footer .footer_sns .twitter:before{content:'\e1c2';}
+#footer .footer_sns .instagram:before{content:'\e329';}
+#footer .footer_sns .pinterest:before{content:'\e1bc';}
+
+/* 매니지 사진크기 조정 */
+.gall_collection{}
+.gall_collection .thumb{margin-bottom:15px;}
+.gall_collection .thumb img{width:100%; max-height:117px;border-radius:3px;}
+.gall_collection .thumb .noimg{width:100%; max-height:117px; }
+.gall_collection .thumb .noimg:before{content:'\e100';}
+.gall_collection .txtWrap{position:relative;}
+.gall_collection .subject{font-size:15px; font-weight:700; margin-bottom:10px;}
+.gall_collection .subject:hover{text-decoration:underline;}
+
+@media screen and (max-width: 779px) {
+.gall_collection .thumb img{width:100%; height:77px;border-radius:3px;}
+}
+
+.gall_insiter .thumb img{width:120px;border-radius:50%;}
+
+/* 북마크 레이아웃조정 */
+.cardBox{position:relative; display:block; padding:15px;  background:#fff; border:1px solid rgba(71,78,103,0.3); border-radius:2px; transition: all .2s ease-in-out;height:110px;}
+.cardBox .thumb{margin-right:auto; margin-left:auto; margin-bottom:20px;}
+.cardBox img{border-radius:2px;}
+.cardBox:hover{background:#505772; border:1px solid #505772; color:#fff !important;}
+.cardBox .subject{font-size:15px; font-weight:700; margin-bottom:10px; height:50px;}
+.cardBox .con{display:block;overflow : hidden; white-space: nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; -ms-text-overflow:ellipsis; -moz-text-overflow:ellipsis;} 
+
+/* 알람 박스 위치 조정*/
+.alarm_list{position:absolute;z-index:10; top:62px; right:-36px; width:300px; padding:0; background:#fff; border:3px solid rgba(71,78,103,0.9); border-radius:2px; box-shadow:0 7px 7px rgba(0,0,0,0.07); display:none;}
+
+/* pagination */
+ul.pagination {
+	overflow:hidden;
+	width:100%;
+	margin:30px auto;
+	text-align:center;
+	box-sizing: border-box;
+	font-size:0;
+	}
+	
+/* 김익진 수정 - 페이져 배경색 추가 (투명 > 화이트) */
+ul.pagination li{display:inline-block; position:relative; overflow:hidden; margin-right:5px; background-color:#ffffff}
+ul.pagination li:last-child{margin-right:0;}
+ul.pagination a{
+	float:left;
+	width:29px;
+	height:29px;
+	line-height:26px;
+	font-size:12px;
+	color:#636363;
+	text-align:center;
+	box-sizing: border-box;
+	color:#838383;
+	border:1px solid #d8d8d8;
+	}
+
+ul.pagination a.prev:before{content:"\e04f"; font-family: 'intaeFont'; font-size:16px; display:inline-block;}
+ul.pagination a.next:before{content:"\e050"; font-family: 'intaeFont'; font-size:16px; display:inline-block;}
+ul.pagination a:hover{color:#000;}
+ul.pagination a.on,
+ul.pagination a.on:hover {background-color:#676767 !important; color:#fff !important; border:1px solid #676767; font-weight: 700;}
+
+body{color:#474e67; font-family: 'NanumSquareRound', sans-serif; font-weight:400; font-size:13px;}
+.logo{font-size:0; display:inline-block; position:relative; overflow:hidden; width:101px; height:23px; background:url('../images/logo_insite.png') no-repeat 100%; background-position:right 0; background-size:auto 100%;}

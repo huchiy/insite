@@ -1,0 +1,809 @@
+/** ----- 공통 영역 ----- **/
+/** ----- Footer ----- **/
+
+.footer  {
+     width: 100%;
+     position:fixed;
+     left:0;
+     bottom:33vw;
+     height:30px;
+     background:white;
+}
+
+.footer .footer_tr {
+     width: 100%;
+     text-align: center;
+}
+
+.footer .footer_tr .footer_td_l {
+     width: 100%;
+}
+
+.nav {margin:0; padding:0; list-style:none;display:inline;}
+.nav  li {display:inline;}
+.nav , #toggle {display:none;}
+#toggle:checked + .nav {display: inline;}
+
+.nav {
+     margin: 0;
+     padding: 0;
+     list-style: none;
+}
+.nav:after{
+     content: "";
+     display: block;
+     clear: both;
+}
+.nav .nav_li {
+     float: left;
+}
+
+.nav .nav_li .img {
+     height: 100%;
+}
+
+.nav .nav_li_info {
+     float: left;
+     padding-left: 20%;
+}
+
+.footer .footer_info {
+     text-align: center;
+     font-size: 14px;
+     width:100%;
+}
+
+.footer_img  {
+     width: 100%;
+     position:absolute;
+     bottom:0;
+     height:30vw;
+}
+
+.footer_img .img_td {
+     width: 25%;
+}
+
+
+.footer_img .img_btn {
+     width: 100%;
+     border: 0;
+     outline: 0;
+     background: white;
+}
+
+.footer_img .img_btn .img{
+     width: 100%;
+     height: 100%;
+}
+
+/** ----- Footer ----- **/
+
+
+
+/** ----- 체크박스 / container ----- **/
+.container {
+     display: block;
+     position: relative;
+     padding-left: 35px;
+     margin-bottom: 12px;
+     cursor: pointer;
+     font-size: 15px;
+     -webkit-user-select: none;
+     -moz-user-select: none;
+     -ms-user-select: none;
+     user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+     position: absolute;
+     opacity: 0;
+     cursor: pointer;
+     height: 0;
+     width: 0;
+}
+
+
+/** ----- 체크박스 / 좌측 선택 ----- **/
+/* Create a custom checkbox */
+.check_mark {
+     position: absolute;
+     top: 0;
+     left: 0;
+     height: 20px;
+     width: 20px;
+     background-color: #eee;
+     border-style:solid;
+     border-width:1px;
+     border-color:#acacac;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .check_mark {
+     background-color: white;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .check_mark {
+     background-color: white;
+     border-color: #07c1f2;
+}
+
+/* Create the check_mark/indicator (hidden when not checked) */
+.check_mark:after {
+     content: "";
+     position: absolute;
+     display: none;
+}
+
+/* Show the check_mark when checked */
+.container input:checked ~ .check_mark:after {
+     display: block;
+}
+
+/* Style the check_mark/indicator */
+.container .check_mark:after {
+     left: 6px;
+     top: 3px;
+     width: 5px;
+     height: 10px;
+     border: solid #07c1f2;
+     border-width: 0 3px 3px 0;
+     -webkit-transform: rotate(45deg);
+     -ms-transform: rotate(45deg);
+     transform: rotate(45deg);
+}
+/** ----- 체크박스 / 좌측 선택 ----- **/
+
+
+
+/** ----- 체크박스 / container ----- **/
+
+
+
+/** ----- 공통 영역 ----- **/
+
+/** ----- login.html / 로그인 페이지 ----- **/
+
+.login .input {
+     font-size:14px;
+     color:#acacac;
+     border-bottom:1px solid #ccc;
+     text-indent:5px;
+     padding-bottom:5px;
+}
+.login .input::placeholder {color:#acacac;}
+.login .input:focus {outline:none;}
+
+
+
+.login .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.login .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.login .header_table .back .img {
+     width:50%;
+}
+
+.login .header_table .login {
+     padding:2% 0 2% 25%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+.login .logo {
+     width:100%;
+     border-width:0;
+}
+
+.login .logo .td {
+     text-align: center;
+     padding-top:10%;
+}
+
+.login .logo .td .img {
+     width:25%;
+}
+
+.login .login {
+     width:100%;
+     padding-top: 10px;
+}
+
+.login .login .id {
+     text-align: center;
+     width:10%;
+}
+
+.login .login .id .img{
+     padding-left: 2vw;
+     width: 70%;
+     vertical-align: middle;
+     text-align: center;
+}
+
+.login .login .id_input {
+     width: 90%;
+}
+
+.login .login .id_input .input {
+     border-width: 0;
+     width: 100%;
+}
+
+.login .login .pwd .pwd_input {
+     width: 10%
+}
+
+.login .login .pwd_input .img{
+     padding-left: 2vw;
+     width: 70%;
+     vertical-align: middle;
+     text-align: center;
+}
+
+.login .login .pwd .input {
+     border-width: 0;
+     width: 100%;
+}
+
+
+
+
+.login .login .pwd_input .input {
+     border-width: 1px;
+}
+
+.login .login .id_chk {
+     width:10%;
+     padding-left: 20%;
+     color: red;
+     font-weight: bold;
+     font-size:12px;
+}
+
+.login .login .pwd {
+     padding-top: 50px
+}
+
+.login .login .pwd_input {
+     text-align: center;
+}
+
+.login .login .pwd_chk {
+     width:10%;
+     padding-left: 20%;
+     color: red;
+     font-weight: bold;
+     font-size: 12px;
+}
+
+.login .login_info {
+     width: 100%;
+     padding-top: 10px;
+}
+
+.login .login_info .id {
+     padding-left: 25px;
+}
+
+.login .login_info .log_user {
+     padding-left: 10px;
+}
+
+.login .find {
+     width: 100%;
+     padding-top: 10px;
+}
+
+.login .find .find_id {
+     text-align: center;
+     border-right-style: solid;
+     border-width:1px;
+     border-color: #cccccc;
+     color: #cccccc;
+}
+
+.login .find .find_id .btn {
+     width:95%;
+     height:40px;
+     background: white;
+     font-weight: bold;
+     font-size:15px;
+     color: #07c1f2;
+     border-color: #07c1f2;
+     border-width:0;
+}
+
+.login .find .find_pwd {
+     text-align: center;
+     color: #cccccc;
+}
+
+.login .find .find_pwd .btn {
+     width:95%;
+     height:40px;
+     background: white;
+     font-weight: bold;
+     font-size:15px;
+     color: #07c1f2;
+     border-color: #07c1f2;
+     border-width:0;
+}
+
+.login .join {
+     width: 100%;
+     padding-top: 20px;
+}
+
+
+
+.login .join .join_tr {
+     width:100%;
+}
+
+.login .join .join_tr .join_td {
+     text-align: center;
+}
+
+.login .join .join_tr .join_td .login_btn {
+     width:95%;
+     height:40px;
+     background: #07c1f2;
+     font-weight: bold;
+     font-size:15px;
+     color: white;
+     border-width:0;
+}
+
+.login .join .join_tr .join_td .join_btn {
+     width:95%;
+     height:40px;
+     background: white;
+     font-weight: bold;
+     font-size:15px;
+     color: #07c1f2;
+     border-color: #07c1f2;
+     border-width:1px;
+     border-style: solid;
+}
+
+/** ----- login.html / 로그인 페이지 ----- **/
+
+
+
+/** ----- main.html / 메인 페이지 ----- **/
+
+.main .top {
+     width: 100%;
+}
+
+.main .top .login {
+     padding-left: 55%;
+}
+
+.main .top .join {
+     width:25%;
+     padding-left: 1%;
+}
+
+.main .top .btn {
+     width: 100%;
+     height: 7vw;
+     border: 0;
+     outline: 0;
+     background: #07c1f2;
+     color:white;
+}
+
+.main .img {
+     width: 100%;
+     height: 100vw;
+     padding-top: 5vw;
+     padding-bottom: 5vw;
+}
+
+/** ----- main.html / 메인 페이지 ----- **/
+
+
+/** ----- id_find.html / 아이디 찾기 ----- **/
+
+.id_find .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.id_find .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.id_find .header_table .back .img {
+     width:50%;
+}
+
+.id_find .header_table .id_find {
+     padding:2% 0 2% 20%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+.id_find .logo {
+     width:100%;
+     border-width:0;
+}
+
+.id_find .logo .td {
+     text-align: center;
+     padding-top:10%;
+}
+
+.id_find .logo .td .img {
+     width:25%;
+}
+
+.id_find .find {
+     padding-top: 5vw;
+     width: 100%;
+}
+
+.id_find .find .hp_find {
+     font-weight: bolder;
+}
+
+.id_find .hp_cert {
+     padding-top: 5vw;
+     padding-bottom: 5vw;
+     width: 100%;
+}
+
+.id_find .hp_cert .hp_num_input {
+     padding-left: 1vw;
+     width: 65%;
+     border-width: 0;
+}
+
+.id_find .hp_cert .hp_num_input .input {
+     width:95%;
+     border-width: 0;
+     font-size:16px;
+}
+
+.id_find .hp_cert .cert_num {
+     padding-left: 1vw;
+     width: 35%;
+}
+
+.id_find .hp_cert .cert_num .btn {
+     width: 100%;
+     height:23px;
+     background: white;
+     font-weight: bold;
+     font-size:13px;
+     color: #07c1f2;
+     border-width: 1px;
+     border-color: #07c1f2;
+     border-style: solid;
+}
+
+.id_find .cert_num {
+     width:100%;
+
+}
+
+.id_find .cert_num .cert_input {
+     width:70%;
+     border-width: 0;
+     font-size:16px;
+}
+
+.id_find .cert_num .input {
+     width:95%;
+     border-width: 0;
+}
+
+.id_find .cert_num .cert_btn {
+     width:20%;
+}
+
+.id_find .cert_num .cert_btn .btn {
+     width: 100%;
+     height:23px;
+     background: white;
+     font-weight: bold;
+     font-size:13px;
+     color: #07c1f2;
+     border-color: #07c1f2;
+     border-width: 1px;
+     border-style: solid;
+}
+
+.id_find .find_result {
+     width:100%;
+     padding-top: 5vw;
+}
+
+.id_find .find_result .result {
+     padding-left: 1vw;
+     font-weight: bolder;
+}
+
+.id_find .find_result .log_user {
+     padding-left:1vw;
+     width:100%;
+}
+
+.id_find .find_result .login {
+     width:100%;
+}
+
+.id_find .find_result .login .login_btn {
+     width:100%;
+     height:30px;
+     background: #07c1f2;
+     font-weight: bold;
+     font-size:15px;
+     color: white;
+     border-width: 0;
+}
+
+/** ----- id_find.html / 아이디 찾기 ----- **/
+
+
+
+/** ----- member_join.html / 비밀번호 찾기 ----- **/
+
+.pwd_find .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.pwd_find .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.pwd_find .header_table .back .img {
+     width:50%;
+}
+
+.pwd_find .header_table .pwd_find {
+     padding:2% 0 2% 15%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+.pwd_find .logo {
+     width:100%;
+     border-width:0;
+}
+
+.pwd_find .logo .td {
+     text-align: center;
+     padding-top:10%;
+}
+
+.pwd_find .logo .td .img {
+     width:25%;
+}
+
+.pwd_find .find .id_find {
+     font-weight: bolder;
+     padding-top:3vw;
+}
+
+.pwd_find .id_find {
+     width:100%;
+}
+
+.pwd_find .id_find .id_input {
+     width:70%;
+     border-width: 0;
+     font-size:16px;
+}
+
+.pwd_find .id_find .id_input .input {
+     width:95%;
+     border-width: 0;
+}
+
+.pwd_find .id_find .id_btn {
+     width:30%;
+     border-width: 0;
+     font-size:16px;
+}
+
+.pwd_find .id_find .id_btn .btn {
+     width:95%;
+     background: white;
+     color: #07c1f2;
+     border-style: solid;
+     border-color: #07c1f2;
+     border-width: 1px;
+}
+
+.pwd_find .hp_pwd_find {
+     font-weight: bolder;
+     padding-top:3vw;
+}
+
+.pwd_find .cert_num_chk {
+     width:100%;
+}
+
+.pwd_find .cert_num_chk .num_chk {
+     width:75%;
+}
+
+.pwd_find .cert_num_chk .num_chk .input {
+     width:95%;
+     border-width: 0;
+}
+
+.pwd_find .cert_num_chk .chk {
+     width:25%;
+}
+
+.pwd_find .cert_num_chk .chk .btn {
+     width:95%;
+     background: white;
+     color: #07c1f2;
+     border-style: solid;
+     border-color: #07c1f2;
+     border-width: 1px;
+}
+
+.pwd_find .new_pwd {
+     width:100%;
+     padding-top:3vw;
+}
+
+.pwd_find .new_pwd .new_pwd_tit {
+     width:95%;
+     font-weight: bolder;
+}
+
+.pwd_find .new_pwd .new_pwd_input .input {
+     width:95%;
+     border-width: 0;
+}
+
+.pwd_find .new_pwd .new_pwd_chk .input {
+     width:95%;
+     border-width: 0;
+}
+
+.pwd_find .save {
+     width:100%;
+}
+
+.pwd_find .save .save_btn {
+     width:95%;
+     border-width: 1px;
+     font-size:16px;
+     background: #07c1f2;
+     color: white;
+     border-style: solid;
+     border-color: #07c1f2;
+}
+
+.pwd_find .save .cancel_btn {
+     width:95%;
+     border-width: 1px;
+     font-size:16px;
+     background: white;
+     color: #07c1f2;
+     border-style: solid;
+     border-color: #07c1f2;
+}
+
+/** ----- pwd_find.html / 비밀번호 찾기 ----- **/
+
+
+/** ----- member_join.html / 회원가입 ----- **/
+
+.member_join .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.member_join .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.member_join .header_table .back .img {
+     width:50%;
+}
+
+.member_join .header_table .join {
+     padding:2% 0 2% 22%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+.member_join .find {
+     padding:2vw 0 0 3vw;
+}
+
+.member_join .find .id_find {
+     font-weight: bolder;
+}
+
+/** ----- member_join.html / 회원가입 ----- **/
+
+
+/** ----- paykhan.html / 페이칸 ----- **/
+
+.paykhan .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.paykhan .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.paykhan .header_table .back .img {
+     width:50%;
+}
+
+.paykhan .header_table .join {
+     padding:2% 0 2% 22%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+/** ----- paykhan.html / 페이칸 ----- **/
+
+
+
+/** ----- paykhan_history.html / 페이칸_거래내역 ----- **/
+
+.paykhan_history .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.paykhan_history .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.paykhan_history .header_table .back .img {
+     width:50%;
+}
+
+.paykhan_history .header_table .history {
+     padding:2% 0 2% 22%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+/** ----- paykhan_history.html / 페이칸_거래내역 ----- **/

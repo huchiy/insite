@@ -1,0 +1,466 @@
+/** ----- login.html / 로그인 페이지 ----- **/
+
+
+
+.login .input {
+     font-size:14px;
+     color:#acacac;
+     border-bottom:1px solid #ccc;
+     text-indent:5px;
+     padding-bottom:5px;
+}
+.login .input::placeholder {color:#acacac;}
+.login .input:focus {outline:none;}
+
+
+
+.login .login {
+     width:100%;
+     padding: 0 15px 0 15px;
+}
+
+.login .login tr{
+     padding: 0 15px 0 15px;
+}
+
+.login .login .id {
+     text-align: center;
+     width:10%;
+}
+
+.login .login .id .img{
+     padding-left: 2vw;
+     width: 100%;
+     vertical-align: middle;
+     text-align: center;
+}
+
+.login .login .id_input {
+     padding-right: 15px;
+     padding-left: 10px;
+     height: 60px;
+     text-align: center;
+}
+
+.login .login .id_input .input {
+     border-width: 0;
+     height: 60px;
+}
+
+.login .login .pwd .pwd_hint {
+     padding-right: 15px;
+     padding-left: 10px;
+}
+
+.login .login .pwd .pwd_input {
+     width: 10%;
+}
+
+.login .login .pwd_input .img{
+     padding-left: 2vw;
+     width: 100%;
+     vertical-align: middle;
+     text-align: center;
+}
+
+.login .login .pwd .input {
+     border-width: 0;
+     width: 100%;
+     height: 60px;
+}
+
+.login .login .pwd_input .input {
+     border-width: 1px;
+     height: 60px;
+}
+
+.login .login .id_chk {
+     width:10%;
+     padding-left: 20%;
+     color: red;
+     font-weight: bold;
+     font-size:12px;
+}
+
+.login .login .pwd {
+     padding-top: 50px
+}
+
+.login .login .pwd_input {
+     text-align: center;
+}
+
+.login .login .pwd_chk {
+     width:10%;
+     padding-left: 20%;
+     color: red;
+     font-weight: bold;
+     font-size: 12px;
+}
+
+.login .login_info {
+     width: 100%;
+     padding-top: 10px;
+}
+
+.login .login_info .id {
+     padding-left: 25px;
+}
+
+.login .login_info .log_user {
+     padding-left: 10px;
+}
+
+.login .find {
+     width: 100%;
+     padding-top: 10px;
+}
+
+.login .find .find_id {
+     text-align: center;
+     border-right-style: solid;
+     border-width:1px;
+     border-color: #cccccc;
+     color: #cccccc;
+}
+
+.login .find .find_id .btn {
+     width:95%;
+     height:40px;
+     background: white;
+     font-weight: bold;
+     font-size:15px;
+     color: #07c1f2;
+     border-color: #07c1f2;
+     border-width:0;
+}
+
+.login .find .find_pwd {
+     text-align: center;
+     color: #cccccc;
+}
+
+.login .find .find_pwd .btn {
+     width:95%;
+     height:40px;
+     background: white;
+     font-weight: bold;
+     font-size:15px;
+     color: #07c1f2;
+     border-color: #07c1f2;
+     border-width:0;
+}
+
+.login .join {
+     width: 100%;
+     padding-top: 20px;
+}
+
+
+
+.login .join .join_tr {
+     width:100%;
+}
+
+.login .join .join_tr .join_td {
+     text-align: center;
+}
+
+.login .join .join_tr .join_td .login_btn {
+     width:95%;
+     height:40px;
+     background: #07c1f2;
+     font-weight: bold;
+     font-size:15px;
+     color: white;
+     border-width:0;
+     border-radius: 2vw;
+}
+
+.login .join .join_tr .join_td .join_btn {
+     width:95%;
+     height:40px;
+     background: white;
+     font-weight: bold;
+     font-size:15px;
+     color: #07c1f2;
+     border-color: #07c1f2;
+     border-width:1px;
+     border-style: solid;
+     border-radius: 2vw;
+}
+
+/** ----- login.html / 로그인 페이지 ----- **/
+
+
+
+/** ----- id_find.html / 아이디 찾기 ----- **/
+
+
+.id_find .find {
+     padding-top: 5vw;
+     width: 100%;
+}
+
+.id_find .find .hp_find {
+     font-weight: bolder;
+}
+
+.id_find .hp_cert {
+     padding-top: 5vw;
+     padding-bottom: 5vw;
+     width: 100%;
+}
+
+.id_find .hp_cert .hp_num_input {
+     padding-left: 1vw;
+     width: 65%;
+     border-width: 0;
+}
+
+.id_find .hp_cert .hp_num_input .input {
+     width:95%;
+     border-width: 0;
+     font-size:16px;
+}
+
+.id_find .hp_cert .cert_num {
+     padding-left: 1vw;
+     width: 35%;
+}
+
+.id_find .hp_cert .cert_num .btn {
+     width: 100%;
+     height:23px;
+     background: white;
+     font-weight: bold;
+     font-size:13px;
+     color: #07c1f2;
+     border-width: 1px;
+     border-color: #07c1f2;
+     border-style: solid;
+     border-radius: 2vw;
+}
+
+.id_find .cert_num {
+     width:100%;
+
+}
+
+.id_find .cert_num .cert_input {
+     width:70%;
+     border-width: 0;
+     font-size:16px;
+}
+
+.id_find .cert_num .input {
+     width:95%;
+     border-width: 0;
+}
+
+.id_find .cert_num .cert_btn {
+     width:20%;
+}
+
+.id_find .cert_num .cert_btn .btn {
+     width: 100%;
+     height:23px;
+     background: white;
+     font-weight: bold;
+     font-size:13px;
+     color: #07c1f2;
+     border-color: #07c1f2;
+     border-width: 1px;
+     border-style: solid;
+     border-radius: 2vw;
+}
+
+.id_find .find_result {
+     width:100%;
+     padding-top: 5vw;
+}
+
+.id_find .find_result .result {
+     padding-left: 1vw;
+     font-weight: bolder;
+}
+
+.id_find .find_result .log_user {
+     padding-left:1vw;
+     width:100%;
+}
+
+.id_find .find_result .login {
+     width:100%;
+}
+
+.id_find .find_result .login .login_btn {
+     width:100%;
+     height:30px;
+     background: #07c1f2;
+     font-weight: bold;
+     font-size:15px;
+     color: white;
+     border-width: 0;
+     border-radius: 2vw;
+}
+
+/** ----- id_find.html / 아이디 찾기 ----- **/
+
+
+
+/** ----- pwd_find.html / 비밀번호 찾기 ----- **/
+
+.pwd_find .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.pwd_find .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.pwd_find .header_table .back .img {
+     width:50%;
+}
+
+.pwd_find .header_table .pwd_find {
+     padding:2% 0 2% 15%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+.pwd_find .find .id_find {
+     font-weight: bolder;
+     padding-top:3vw;
+}
+
+.pwd_find .id_find {
+     width:100%;
+}
+
+.pwd_find .id_find .id_input {
+     width:70%;
+     border-width: 0;
+     font-size:16px;
+}
+
+.pwd_find .id_find .id_input .input {
+     width:95%;
+     border-width: 0;
+}
+
+.pwd_find .id_find .id_btn {
+     width:30%;
+     border-width: 0;
+     font-size:16px;
+     border-radius: 2vw;
+}
+
+.pwd_find .id_find .id_btn .btn {
+     width:95%;
+     background: white;
+     color: #07c1f2;
+     border-style: solid;
+     border-color: #07c1f2;
+     border-width: 1px;
+     border-radius: 2vw;
+}
+
+.pwd_find .hp_pwd_find {
+     font-weight: bolder;
+     padding-top:3vw;
+}
+
+.pwd_find .cert_num_chk {
+     width:100%;
+}
+
+.pwd_find .cert_num_chk .num_chk {
+     width:75%;
+}
+
+.pwd_find .cert_num_chk .num_chk .input {
+     width:95%;
+     border-width: 0;
+}
+
+.pwd_find .cert_num_chk .chk {
+     width:25%;
+}
+
+.pwd_find .cert_num_chk .chk .btn {
+     width:95%;
+     background: white;
+     color: #07c1f2;
+     border-style: solid;
+     border-color: #07c1f2;
+     border-width: 1px;
+     border-radius: 2vw;
+}
+
+.pwd_find .new_pwd {
+     width:100%;
+     padding-top:3vw;
+}
+
+.pwd_find .new_pwd .new_pwd_tit {
+     width:95%;
+     font-weight: bolder;
+}
+
+.pwd_find .new_pwd .new_pwd_input .input {
+     width:95%;
+     border-width: 0;
+}
+
+.pwd_find .new_pwd .new_pwd_chk .input {
+     width:95%;
+     border-width: 0;
+}
+
+.pwd_find .save {
+     width:100%;
+}
+
+.pwd_find .save .save_btn {
+     width:95%;
+     border-width: 1px;
+     font-size:16px;
+     background: #07c1f2;
+     color: white;
+     border-style: solid;
+     border-color: #07c1f2;
+     border-radius: 2vw;
+}
+
+.pwd_find .save .cancel_btn {
+     width:95%;
+     border-width: 1px;
+     font-size:16px;
+     background: white;
+     color: #07c1f2;
+     border-style: solid;
+     border-color: #07c1f2;
+     border-radius: 2vw;
+}
+
+/** ----- pwd_find.html / 비밀번호 찾기 ----- **/
+
+
+/** ----- member_join.html / 회원가입 ----- **/
+
+.member_join .find {
+     padding:2vw 0 0 3vw;
+}
+
+.member_join .find .id_find {
+     font-weight: bolder;
+}
+
+/** ----- member_join.html / 회원가입 ----- **/
+

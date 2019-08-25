@@ -1,0 +1,102 @@
+
+/*──────────────── Icon ────────────────*/
+[class*="icon_"]:before{content: ""; font-family: 'intaeFont'; font-weight:normal !important; font-style: normal !important; vertical-align:middle; display:inline-block;}
+.icon_arrow:before{content:'\e004'; margin-top:-0.15em; margin-right:-5px; transition: all 0.25s cubic-bezier(0.4, 0, 0, 1);}
+.icon_search:before{content:'\e344';}
+
+.btn:hover .icon_arrow:before{margin-left:10px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+span[class*="fileIcon_"]{font-size:15px; margin-top:1px; margin-right:5px; display:inline-block; }
+[class*="fileIcon_"]:before{font-family: 'intaeFont'; content:'\e0e8'; color:#676767;  font-weight:normal !important; margin-top:-2px; vertical-align:middle; display:inline-block;}
+
+span[class*="fileIcon_"].file + span[class*="fileIcon_"].file{display:none;}
+
+.fileIcon_jpg:before,
+.fileIcon_png:before,
+.fileIcon_gif:before{content:'\e0f7'; font-size:16px; margin-top:1px;}
+
+/*
+.fileIcon_mp4:before,
+.fileIcon_avi:before,
+.fileIcon_wmv:before,
+.fileIcon_mkv:before{content:'\e0a8'; font-size:16px; margin-top:1px;}
+*/
+
+span.icon_new{
+	position:relative;
+	font-family:Arial, sans-serif;
+	font-size:10px;
+	padding:0 4px;
+	height:15px;
+	line-height:15px;
+	border-radius:3px;
+	text-align:center;
+	color:#fff;
+	background:#ff6464;
+	display:inline-block;
+	vertical-align:middle;
+	margin-top:-1px;
+	margin-left:12px !important;
+	}
+.icon_new:before{content: "\e043"; font-family: 'intaeFont'; font-size:12px; color:#ff6464; position:absolute; top:50%; left:-7px;  margin-top:-6px; display:inline-block; vertical-align:middle; line-height:12px;}
+/*
+span.icon_new{
+	position:relative;
+	display:inline-block;
+	vertical-align:middle;
+	font-size:0px;
+	margin-left:10px;
+	margin-top:-2px;
+	}
+.icon_new:before{content: "\e3c9"; font-family: 'intaeFont'; font-size:24px; color:#ff6464;}
+*/
+
+.icon_hot{font-size:0; display:inline-block; vertical-align:middle; width:22px; height:22px; text-align:center; color:#676bff; background:#fff; border:1px solid rgba(103,107,255,0.7); border-radius:10px; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);}
+.icon_hot:before{content: "\e19e"; font-size:16px; line-height:22px; color:inherit; display:inline-block;}
+
+
+
+
+
+.quotationMark{display:block;}
+.quotationMark:before{
+	content:'\e3ed';
+	font-family:'intaeFont';
+	font-size:42px;
+	color:#e0e0e0;
+	display:inline-block;
+	margin-left:-5px;
+	margin-bottom:10px;
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+	}
+
+
+
+.tip{cursor:pointer; border-radius:1px;}
+.tip:after{
+	content: "\e11e";
+	font-family: 'intaeFont'; 
+	font-size:15px;
+	color:#b5e9ff;
+	vertical-align:middle;
+	font-weight:normal;
+	margin-left:7px;
+	}
+
+

@@ -1,0 +1,70 @@
+<?include "../inc/inc_head.php";
+include "bbs_cf.php";
+
+$rp_num=bbs_cm_num_var($tb_name,$idx,$Admin,$rp_view_ck);
+if($rp_num>0){$rp_num_f=number_format($rp_num);}
+else {$rp_num_f="0";}
+
+// 스팸방지 번호 생성
+$sp_num=rand(10000,99999);
+?>
+
+    <ul class="reply_list">
+    	<li class="infoTxt">
+      	<p class="number">의견글 (<?=$rp_num_f?>)</p>
+        <p class="caution">비방이나 기타 타인에게 혐오감을 주는 글은 삭제됩니다.</p>
+      </li>
+
+<?
+$re_result=query("select * from wk_bbs_{$tb_name}_comment where Bidx='$idx' order by idx asc");
+for($i=1;$i<$re_rows=fetch_array($re_result) ;$i++ ){
+	$name=$re_rows[user_name];
+	if($_SESSION[p_id] && ($_SESSION[p_level]==1 || $re_rows[user_id]==$_SESSION[p_id])){
+		$mod="bbs_rep_sub($idx,$re_rows[idx],'bbs_re_modify');";
+		$del="if(confirm('정말삭제하시겠습니까?')) bbs_rep_sub($idx,$re_rows[idx],'bbs_re_delete');";
+	}else {
+		$mod="re_pass_open($idx,$re_rows[idx],'bbs_re_pass_mod');";
+		$del="re_pass_open($idx,$re_rows[idx],'bbs_re_pass_del');";
+	}?>
+
+      <li class="conList">
+      	<dl>
+        	<dt><?=$name?></dt>
+          <dd class="conTxt">
+          	<p class="date"><?=$re_rows[date_tm];?></p>
+          	<p><?=nl2br($re_rows[content]);?></p>
+          </dd>
+          <dd class="conEdit"><div id="pass_<?=$re_rows[idx]?>" style="position:absolute;"></div>
+          	<a href="#a" onClick="<?=$mod?>"><img src="../images/board/reBtn_modify.gif" width="50" height="24" alt="수정" /></a>
+            <a href="#a" onClick="<?=$del?>"><img src="../images/board/reBtn_delete.gif" width="50" height="24" alt="삭제" /></a>
+          </dd>
+        </dl>
+      </li>
+
+<?
+}?>
+    </ul>
+
+<?if( strstr($Rlevel,"10/") || $Admin=="Y" || ($_SESSION[p_id] && strstr($Rlevel,"$_SESSION[p_level]/"))){?>  
+<?}?>
+
+  <form name="recom_frm" id="recom_frm">  
+	<input type="hidden" name="checkName" id="checkName" value="bbs_re_insert">
+	<input type="hidden" name="tb_name" id="tb_name" value="<?=$tb_name?>">
+	<input type="hidden" name="idx" id="idx" value="<?=$idx?>">
+	<input type="hidden" name="r_idx" id="r_idx" value="">
+	<input type="hidden" name="mk_num" value="<?=$sp_num?>">
+  <dl id="recom_w" class="reply_form">
+<?if(!$_SESSION[p_id]){?>
+  	<dt><label for="name">이름</label></dt> <dd class="dd_name"><input type="text" name="user_name" id="user_name" size="" /></dd>
+      <dt><label for="secret"><!-- 비밀글 --></label></dt>     <dd class="dd_right"><!-- <input type="checkbox" id="secret" /> --></dd>
+    <dt><label for="password">비밀번호</label></dt> <dd><input type="password" name="pwd" id="pwd" /></dd>
+    <dt><label for="spam">스팸방지</label></dt>     <dd class="dd_right"><span><?=$sp_num?></span> <input type="number" name="s_num" id="spam" style="width:20%;" /> <span class="spam_info">* 왼쪽의 숫자를 입력하세요.</span></dd>
+<?}?>
+    <dt class="dt_content"><label for="name">내용</label></dt>
+    <dd class="dd_content">
+    	<textarea name="content" id="re_content"></textarea>
+      <a href="#a" onClick="bbsrecomSub();">등록</a>
+    </dd>
+  </dl>
+  </form>

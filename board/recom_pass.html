@@ -1,0 +1,7 @@
+<?include "../inc/inc_head.php";?>
+<div style="position:relative;padding:5px 0 5px 5px;overflow:auto;border-spacing:5px;border:1px solid #e5e5e5;text-align:center;left:-150px;background-color:#ebebeb;">
+<ul style="width:180px;">
+	<li style="padding:5px;font-size:13px;font-weight:bold;">비밀번호확인 <a href="#a" onClick="re_pass_close(<?=$idx?>);" style="padding-left:30px;color:#d9600f;">[ X ]</a></li>
+	<li><input type="password" name="re_pwd" id="re_pwd" style ="width:90px;" onKeyDown="enter_k(<?=$idx?>,<?=$r_idx?>,'<?=$md?>');"> <a href="#a" onClick="bbs_rep_sub(<?=$idx?>,<?=$r_idx?>,'<?=$md?>');" style="min-width:70px;height:29px;border-radius:4px;background:#165c90;border:solid 1px #003d6a!important;color:#fff;font-size:12px;cursor:pointer;padding:2px 10px; line-height:26px;vertical-align:top;">확인</a></li>
+</ul>
+</div>

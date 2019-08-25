@@ -1,0 +1,157 @@
+<?
+/**
+*		쓰기페이지
+*/
+
+// 글쓰기권한.
+//if(!eregi("10/",$Wlevel) && $Admin!="Y" && !$_SESSION[p_id] && !eregi("$_SESSION[p_level]/",$Wlevel) ){
+//if(!$_SESSION[p_id] && !eregi("10/",$Wlevel) && $Admin!="Y" && !eregi("$_SESSION[p_level]",$Wlevel)){
+//	alert("접근 권한이 없습니다.",$pgUp);
+//}
+if(strstr($Wlevel,"10/") || $Admin=="Y" || ($_SESSION[p_id] &&  strstr($Wlevel,"$_SESSION[p_level]/"))){}
+else {alert("접근 권한이 없습니다.",$pgUp);}
+
+if($idx && ($ps_ck=="Y" || $_SESSION["p_level"]==1)){
+
+	$Wrows=f_array("select * from wk_bbs_{$tb_name} where idx='$idx'");	
+	$category=$Wrows[category];
+	$userName=$Wrows[user_name];
+	$userEmail=$Wrows[email];
+	$r_date=$Wrows[r_date];
+	$userPass=$Wrows[pwd];
+	$bbs_Fname=explode("/",$Wrows[fileName]);
+	$bbs_files=explode("/",$Wrows[files]);
+	$bbs_files_cmt=explode("/%|789512364|%/",$Wrows[files_comment]);
+	$Query="update";
+
+}else {
+
+	$userName=$MB_arr[user_name];
+	$userEmail=$MB_arr[email];
+	$userPass=$MB_arr[pwd];
+	$Query="insert";
+
+}
+
+
+//답변글
+if($Aidx){
+	$Mody_arr=f_array("select * from wk_bbs_{$tb_name} where idx='$Aidx'");
+}
+
+//리스트페이지이동.
+$LiAction="$PageURL&bbs_section=list&page=$page&Ctg=$Ctg";
+?>
+
+<script language="JavaScript">
+<!--
+	function write_sub() {
+
+		var frm=document.bbs_frm;
+
+	<?if($category_ck=="Y"){?>
+			if(!frm.category.value){alert("카테고리를 선택하세요.");frm.category.focus();return;}
+	<?}?>
+
+<?if(!$_SESSION[p_id]){?>
+		if(!frm.user_name.value){alert("작성자를 입력하세요.");frm.user_name.focus();return;}
+		if(!frm.pwd.value){alert("비밀번호를 입력하세요.");frm.pwd.focus();return;}
+<?}?>
+
+		if(!frm.subject.value){alert("제목을 입력하세요.");frm.subject.focus();return;}
+
+		// 에디터의 내용이 textarea에 적용된다.
+		oEditors.getById["se_editor1"].exec("UPDATE_CONTENTS_FIELD", []);
+
+		frm.submit();
+
+	}
+//-->
+</script>
+
+	<form name="bbs_frm" action="<?=$pgUp?>board/bbs_ok.php" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="Query" value="<?=$Query?>">
+	<input type="hidden" name="rt_page" value="<?=$PHP_SELF?>">
+	<input type="hidden" name="tb_name" value="<?=$tb_name?>">
+	<input type="hidden" name="Ctg" value="<?=$Ctg?>">
+	<input type="hidden" name="idx" value="<?=$Wrows["idx"]?>">
+	<input type="hidden" name="fno" value="<?=$fno?>">
+	<input type="hidden" name="thread" value="<?=$thread?>">
+	<input type="hidden" name="Aidx" value="<?=$Aidx?>">
+	<input type="hidden" name="page" value="<?=($idx) ? $page : "";?>">
+  <div class="together_write">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="리텍뉴스" class="table_st01">
+  	<caption>게시글 작성</caption>
+<?if(!$_SESSION[p_id]){?>
+	<tr>
+      <th scope="row"><label for="title">작성자</label></th>
+      <td><input type="text" name="user_name" value="<?=$userName?>" id="title" /></td>
+    </tr>
+	<tr>
+      <th scope="row"><label for="title">비밀번호</label></th>
+      <td><input type="password" name="pwd" value="" id="title" /></td>
+    </tr> 
+<?}?>
+	<tr>
+      <th scope="row"><label for="title">제목</label></th>
+      <td><input type="text" name="subject" value="<?=$Wrows[subject]?>" id="title" /></td>
+    </tr>    
+    <tr>
+	  <td colspan="2" style="padding:10px;"><textarea name="content" id="se_editor1" style="min-width:300px;width:100%;height:300px;"><?=$Wrows[content];?></textarea></td>
+    </tr>
+<?if($bbs_skin=='gallery' || $bbs_skin=='news'){?>
+	<tr>
+		<th>썸네일</th>
+		<td class="last">
+	<?for($i=0;$i<1 ;$i++ ){?>
+		<input type="hidden" name="fileN<?=$i?>" value="<?=$bbs_files[$i]?>">
+		<input type="hidden" name="fileRN<?=$i?>" value="<?=$bbs_Fname[$i]?>">
+		<input name="up_file<?=$i?>" type="file" style="width:70%;height:25px;"> <?if($bbs_files[$i]){?><?=$bbs_Fname[$i]?>&nbsp;<input type="checkbox" name="del_file[<?=$i?>]" value="<?=$bbs_Fname[$i]?>///<?=$bbs_files[$i]?>" style="border:0; vertical-align:middle;">삭제<?}?>
+	<?}?>		
+		</td>
+	</tr>
+<?}?>
+
+<?if($fileNum>0){?>
+
+	<tr>
+		<th>파일</th>
+		<td class="last">
+	<?for($i=1;$i<$fileNum ;$i++ ){?>
+		<input type="hidden" name="fileN<?=$i?>" value="<?=$bbs_files[$i]?>">
+		<input type="hidden" name="fileRN<?=$i?>" value="<?=$bbs_Fname[$i]?>">
+		<input name="up_file<?=$i?>" type="file" style="width:70%;height:25px;"> <?if($bbs_files[$i]){?><?=$bbs_Fname[$i]?>&nbsp;<input type="checkbox" name="del_file[<?=$i?>]" value="<?=$bbs_Fname[$i]?>///<?=$bbs_files[$i]?>" style="border:0; vertical-align:middle;">삭제<?}?>
+	<?}?>		
+		</td>
+	</tr>
+
+<?}?>
+  </table>
+  </div>
+
+  <div class="board_btn"><a href="javascript:write_sub();" class="btn_white"><? if($idx && ($ps_ck=="Y" || $_SESSION["p_level"]==1)){ echo '수정완료'; }else{ echo '등록완료'; } ?></a><a href="<?=$LiAction?>" class="btn_red">목록</a></div>
+	</form>
+
+
+<script type="text/javascript" src="../se/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+var oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+	oAppRef: oEditors,
+	elPlaceHolder: "se_editor1",
+	sSkinURI: "../se/SmartEditor2Skin.html",	
+	htParams : {
+		bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+		bUseVerticalResizer : true,// 입력창 크기 조절바 사용 여부(true:사용/ false:사용하지 않음)
+		bUseModeChanger : true,// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+		fOnBeforeUnload : function(){
+			//alert("완료!");
+		}
+	}, //boolean
+	fOnAppLoad : function(){
+		//예제 코드
+		//oEditors.getById["se_editor1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
+	},
+	fCreator: "createSEditor2"
+});
+</script>

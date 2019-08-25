@@ -1,0 +1,373 @@
+<?
+/**
+*		보기페이지
+*/
+
+
+if($idx){	
+
+	$Vrows=f_array("select * from wk_bbs_{$tb_name} where idx='$idx'");
+	$category=$Vrows[category];
+	if($category){
+		$ct_nms="<span style='color:#ff0000;'>[".bbs_ctg_nm($category)."]</span> ";
+	}
+	if($ip_ck=="Y"){$u_ip="IP: $Vrows[user_ip]";}
+	$bbs_Fname=explode("/",$Vrows[fileName]);
+	$bbs_files=explode("/",$Vrows[files]);
+	$bbs_files_cmt=explode("/%|789512364|%/",$Vrows[files_comment]);	
+
+	// 공지글은 글번호 대신 아이콘 출력
+	if($Vrows[notice]=="Y"){
+		if($Vrows[nickName]=="1"){
+			$nt_t="<span class='notice_icon'><em class='blind'>중요공지</em></span>";
+		}else if($Vrows[nickName]=="2"){
+			$nt_t="<span class='event_icon'><em class='blind'>특가이벤트</em></span>";
+		}else if($Vrows[nickName]=="3"){
+			$nt_t="<span class='event_icon'><em class='blind'>단체출발안내</em></span>";
+		}
+	}
+
+	//오늘쓴글은 시간으로 오늘이 지나면 날짜로 출력.
+	$dt_ymd=substr($Vrows[date_tm],0,10);
+	$dt_his=substr($Vrows[date_tm],11,5);
+	if($dt_ymd==$date){$Dtime=$dt_his;}else {$Dtime=$dt_ymd;}
+
+	//내용
+	if($edit_ck=="Y"){//에디트 사용.
+		$content=$Vrows[content];
+		$content=preg_replace("(<img)","<img style='max-width:830px;'",$content);		
+	}else{
+		if($Vrows[html] == "N"){
+			$content=htmlspecialchars($Vrows[content]);
+			$content=str_replace(chr(13),"<br>",$content);
+			$content=str_replace("  "," &nbsp;",$content);
+		}else {
+			$content=$Vrows[content];
+		}
+	}
+
+	//이벤트용 내용2
+	if($edit_ck=="Y"){//에디트 사용.
+		$content2=$Vrows[content2];
+	}else{
+		if($Vrows[html] == "N"){
+			$content2=htmlspecialchars($Vrows[content2]);
+			$content2=str_replace(chr(13),"<br>",$content2);
+			$content2=str_replace("  "," &nbsp;",$content2);
+		}else {
+			$content2=$Vrows[content2];
+		}
+	}
+
+	//조회수증가.
+	if(!$_SESSION[p_id] && ($_SESSION[p_id] != $Vrows[user_id])){
+		query("update wk_bbs_{$tb_name} set hit=hit+1 where idx='$idx'");
+	}
+
+	//이벤트 기간, 마감일
+	$s_date = str_replace("-",".",$Vrows[s_date]);
+	$e_date= str_replace("-",".",$Vrows[e_date]);
+	$r_date= str_replace("-",".",$Vrows[r_date]);
+
+	// 댓글수
+	$rp_num=bbs_cm_num_var($tb_name,$Vrows[idx],$Admin,$rp_view_ck);
+
+}else {
+	alert("오류가 있습니다.",$pgUp);
+}
+
+// 공통
+$cm_para="&page=$page&mode=$mode&keyfield=$keyfield&key=$key";
+
+// 리스트
+$LiAction="$PageURL&bbs_section=list".$cm_para;
+
+// 보기권한
+if( strstr($Vlevel,"10/") || $Admin=="Y" || ($_SESSION[p_id] && strstr($Vlevel,"$_SESSION[p_level]/"))){	 // 해당권한자만...
+
+	if($Vrows[secret]=="Y"){	 // 비밀글인경우.
+		if($Admin!="Y" || ($_SESSION[p_id] && $_SESSION[p_id]!=$Vrows[user_id]) || $secret_ok!="S_Ok"){// 본인이나 비번치고 들어오면
+			//go("$PageURL&bbs_section=pass&Ctg=$Ctg&idx=$Vrows[idx]&fno=$Vrows[fno]&thread=$Vrows[thread]&page=$page&pass_gb=view");
+		}				
+	}
+	
+}else{
+	back("해당글을 볼 수 있는 권한이 없습니다.");exit;
+}
+
+// 글쓰기
+if(strstr($Wlevel,"10/") || $Admin=="Y" || ($_SESSION[p_id] && strstr($Wlevel,"$_SESSION[p_level]/")) ){
+	$WrAction="$PageURL&bbs_section=write&Ctg=$Ctg&page=$page";
+}else {$WrAction="javascript:alert('해당글을 등록하실 권한이 없습니다.');";}
+
+
+$mdaUrl="$PageURL&Ctg=$Ctg&idx=$Vrows[idx]&fno=$Vrows[fno]&thread=$Vrows[thread]&page=$page";
+//수정권한	
+if($Admin=="Y" || ($_SESSION[p_id] && $_SESSION[p_id]==$Vrows[user_id])){
+	$MoAction=$mdaUrl."&bbs_section=write";	
+	$MoBtn="<a href='$MoAction' class='btn_white'>수정</a>";
+}else{
+	$MoAction=$mdaUrl."&rt_page=$bbs_rt_page&bbs_section=pass&pass_gb=write";
+	$MoBtn="";
+}
+
+//답변권한
+if(strstr($Alevel,"10/") || $Admin=="Y" || ($_SESSION[p_id] && strstr($Alevel,"$_SESSION[p_level]/"))){
+	$AnAction="$PageURL&bbs_section=write&Ctg=$category&fno=$Vrows[fno]&thread=$Vrows[thread]&Aidx=$Vrows[idx]&page=$page";
+	$AnBtn="<a href='$AnAction' class='btn_white'>답변</a>";
+}else {
+	$AnAction="javascript:alert('답변 권한이 없습니다.');";
+	$AnBtn="";
+}
+
+//부모글에 답변글이 달리면 삭제X
+$Fnum=n_rows("select * from wk_bbs_{$tb_name} where fno='$Vrows[fno]'");
+//삭제권한
+if($delete_ck=="N" && $Vrows[thread]=="A" && $Fnum>1){	// 답변글 삭제안됨 설정시
+	if($Admin=="Y" || ($_SESSION[p_id] && $_SESSION[p_id]==$Vrows[user_id])){
+		$DeAction="javascript:alert(\"답변글이 있는 글은 삭제할 수 없습니다.\");";
+		$DeBtn="<a href='$DeAction' class='btn_white'>삭제</a>";
+	}
+}else {
+	if($Admin=="Y" || ($_SESSION[p_id] && $_SESSION[p_id]==$Vrows[user_id])){
+		if($delete_ck=="Y" && $Vrows[thread]=="A" && $Fnum>1 ){
+			$dmsg="답변글까지 삭제됩니다.\\n";
+		}
+		$Das="{$pgUp}board/bbs_ok.php?$page_para&adm_ck=$adm_ck&Ctg=$Ctg&Query=delete&idx=$Vrows[idx]&rt_page=$REQUEST_URI";
+		$DeAction="javascript:if(confirm(\"{$dmsg}정말 삭제 하시겠습니까?\")) location.replace(\"{$Das}\");";
+		//$DeAction="javascript:if(confirm('정말 삭제 하시겠습니까?')) viewSub('$PHP_SELF','$tb_gubun','".$Ctg."','$Vrows[idx]','$Vrows[pwd]');";
+		$DeBtn="<a href='$DeAction' class='btn_white'>삭제</a>";
+	}else {	// 비회원 삭제시
+		$DeAction=$mdaUrl."&rt_page=$bbs_rt_page&Ctg=$Ctg&bbs_section=pass&pass_gb=delete";
+		$DeBtn="";
+	}	
+}
+
+$pnUrl="$PageURL&bbs_section=view&page=$page&Ctg=$Ctg";
+if($Ctg){$cateGys="and category='$category'";}
+//이전글	
+$pre_row=f_array("select * from wk_bbs_{$tb_name} where notice!='Y' $cateGys and ((fno=$Vrows[fno] and thread<'$Vrows[thread]') or (fno>'$Vrows[fno]')) order by fno asc, thread desc limit 0,1");
+$pre_sub=strcut_utf8($pre_row[headtext]."".$pre_row[subject],65);
+if($pre_sub){
+	if(strstr($Vlevel,"10/") || ($_SESSION[p_id] && strstr($Vlevel,"$_SESSION[p_level]/"))){//해당권한.
+		$pre_ac="{$pnUrl}&idx=$pre_row[idx]";	
+	}else {
+		if($_SESSION[p_id]){//로그인 했으나 권한이 안되는 경우.
+			$pre_ac="javascript:alert('해당글을 볼 수 있는 권한이 없습니다.');";
+		}else {//로그인하지 않은 경우.
+			$pre_ac="javascript:alert('로그인 하세요.');";
+		}
+	}
+	$preSub="<A HREF=\"$pre_ac\" class='pn_ac'>$pre_sub</A>";
+	$p_date=substr($pre_row[date_tm],0,10);
+	$p_dt=str_replace("-",".",$p_date);
+}else{$preSub="이전글이 없습니다";}
+
+//다음글
+$next_row=f_array("select * from wk_bbs_{$tb_name} where notice!='Y' $cateGys and ((fno=$Vrows[fno] and thread>'$Vrows[thread]') or (fno<'$Vrows[fno]')) order by fno desc, thread asc limit 0,1");
+$next_sub=strcut_utf8($next_row[subject],65);
+if($next_sub){
+	if(strstr($Vlevel,"10/") || ($_SESSION[p_id] && strstr($Vlevel,"$_SESSION[p_level]/"))){//해당권한.
+		$next_ac="{$pnUrl}&idx=$next_row[idx]";	
+	}else {
+		if($_SESSION[p_id]){//로그인 했으나 권한이 안되는 경우.
+			$next_ac="javascript:alert('해당글을 볼 수 있는 권한이 없습니다.');";
+		}else {//로그인하지 않은 경우.
+			$next_ac="javascript:alert('로그인 하세요.');";
+		}
+	}
+	$nextSub="<A HREF=\"$next_ac\" class='pn_ac'>$next_sub</A>";
+	$n_date=substr($next_row[date_tm],0,10);
+	$n_dt=str_replace("-",".",$n_date);
+}else{$nextSub="다음글이 없습니다";}
+
+// 댓글
+if($Ridx){	// 댓글수정
+
+	$rcomm_rows=@f_array("select * from wk_bbs_{$tb_name}_comment where idx='$Ridx'");
+	$Query="re_update";
+
+}else {$Query="re_insert";}
+?>
+
+<script type="text/javascript">
+<!--
+// 게시판 댓글 등록
+function bbsrecomSub() {
+
+	var frm=document.recom_frm;
+<?if(!$_SESSION[p_id]){?>
+	if(!frm.user_name.value){alert("이름을 입력하세요");frm.user_name.focus();return;}
+	if(!frm.pwd.value){alert("비밀번호를 입력하세요");frm.pwd.focus();return;}
+	if(!frm.s_num.value){alert("스팸방지 번호를 입력하세요");frm.s_num.focus();return;}
+	if(frm.mk_num.value!=frm.s_num.value){alert("스팸방지 번호가 일치하지 않습니다");return;}
+<?}?>
+	if(!frm.content.value){alert("내용을 입력하세요");frm.content.focus();return;}
+	$.ajax({
+		type: 'POST',
+		url: '../inc/ajax_check.php',
+		data: $("#recom_frm").serialize(),
+		cache: false,
+		async: false,
+		success: function(result) {
+			result = result.replace(/(^\s*)|(\s*$)/g, "");
+			if(result=="ok"){
+				$('#re_list').load("../board/recom.html?tb_name="+$('#tb_name').val()+"&idx="+$('#idx').val());
+			}else {alert("오류가 있습니다");}
+		}
+	});
+
+}
+
+// 게시판 댓글 로그인시 본인글 수정,삭제
+function bbs_rep_sub(idx,r_idx,md) {
+
+	if(md=="bbs_re_pass_mod" || md=="bbs_re_pass_del"){
+		pwd=$('#re_pwd').val();
+		if(!pwd){alert("비밀번호를 입력하세요");$('#re_pwd').focus();return;}
+	}else {pwd="";}
+
+	$.ajax({
+		type: 'POST',
+		url: '../inc/ajax_check.php?checkName='+md,
+		data: {
+			'tb_name': $('#tb_name').val(),
+			'idx': r_idx,
+			'pwd': pwd
+		},
+		cache: false,
+		async: false,
+		success: function(result) {
+			result = result.replace(/(^\s*)|(\s*$)/g, "");
+			if(result=="ok"){	// 삭제
+				$('#re_list').load("../board/recom.html?tb_name="+$('#tb_name').val()+"&idx="+idx);
+			}else if(result=="10"){alert("오류가 있습니다");}
+			else if(result=="20"){alert("비밀번호가 틀립니다");}
+			else {	// 수정
+				if(md=="bbs_re_pass_mod"){$("[id*='pass']").html("");}
+				var re_cont=result.split("/@7538@/");
+				$('#checkName').val("bbs_re_update");
+				$('#r_idx').val(r_idx);
+				$('#user_name').val(re_cont[0]);	
+				$('#re_content').val(re_cont[1]);	
+			}
+		}
+	});
+
+}
+
+// 비밀번호 확인 후 수정,삭제
+function re_pass_open(idx,r_idx,md) {
+
+	$("[id*='pass']").html("");
+	$('#pass_'+r_idx).load("../board/recom_pass.html?idx="+idx+"&r_idx="+r_idx+"&md="+md);
+
+}
+
+// 비밀번호 확인창 닫기
+function re_pass_close(idx) {
+	$("[id*='pass']").html("");
+}
+
+// 댓글 비밀번호 확인창 엔터키
+function enter_k(idx,r_idx,md) {
+	if(event.keyCode==13){bbs_rep_sub(idx,r_idx,md);	return;}
+}
+
+// 로드시 댓글 노출
+<?if($recom_ck=="Y"){?>
+$(document).ready(function(){
+	$('#re_list').load("../board/recom.html?tb_name=<?=$tb_name?>&idx=<?=$idx?>");
+});
+<?}?>
+//-->
+</script>
+
+	<form name="bbs_frm" action="<?=$f_url?>board/bbs_ok.php" method="post" onSubmit="return rec_sub(this);">
+	<input type="hidden" name="Query" value="<?=($Ridx)?"re_update":"re_insert";?>">
+	<input type="hidden" name="idx" value="<?=$idx?>">		
+	<input type="hidden" name="lf_no" value="<?=$lf_no?>">
+	<input type="hidden" name="lf_sort" value="<?=$lf_sort?>">
+	<input type="hidden" name="tb_name" value="<?=$tb_name?>">
+	<input type="hidden" name="Ridx" value="<?=$rcomm_rows[idx]?>">
+	<input type="hidden" name="rt_page" value="<?=$PHP_SELF?>">
+	<input type="hidden" name="Ctg" value="<?=$Ctg?>">
+	<input type="hidden" name="mode" value="<?=$mode?>">
+	<input type="hidden" name="keyfield" value="<?=$keyfield?>">
+	<input type="hidden" name="key" value="<?=$key?>">
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="리텍뉴스" class="table_st01">
+		<caption>리텍뉴스</caption>
+		<colgroup>
+			<col width="15%"/>
+			<col width="35%"/>
+			<col width="15%"/>
+			<col width="35%"/>
+		</colgroup>
+		<tr>
+			<th scope="row">제목</th>
+			<td><?=$nt_t?> <?=$ct_nms.$Vrows[subject]?></td>
+			<th scope="row">등록일</th>
+			<td><?=$Dtime?></td>
+		</tr>
+		<tr>
+			<th scope="row">첨부파일</th>
+			<td>
+				<?
+				if($fileNum>0){	
+					for($i=1;$i<sizeof($bbs_files) ;$i++ ){
+						if($bbs_files[$i]){
+							echo"$bbs_Fname[$i]<a href='{$pgUp}files/download.php?folder=bbs_{$tb_name}&file=$bbs_files[$i]'>&nbsp;(다운로드)</a>&nbsp;&nbsp;";
+						}
+					}
+				}?>
+			</td>
+			<th scope="row">작성자</th>
+			<td><?=$Vrows[user_name]?></td>
+		</tr>
+		<tr>
+			<td colspan="4" id="con_area"><?=$content?></td>
+		</tr>
+	</table>
+
+  <div class="board_btn"><?=$MoBtn?><?=$DeBtn?><a href="<?=$LiAction?>" class="btn_red">목록</a></div>
+	</form>
+
+	<!-- 댓글 -->
+	<!-- <div id="re_list"></div> -->
+	<!-- 댓글 -->
+
+	<!-- 이전,다음 페이지 정보 -->
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_st02 mt50">
+		<colgroup>
+			<col width="20%"/>
+			<col width="80%"/>
+		</colgroup>
+		<tr>
+			<th scope="row">이전글</th>
+			<td><?=$preSub?></td>
+		</tr>
+		<tr>
+			<th scope="row">다음글</th>
+			<td><?=$nextSub?></td>
+		</tr>
+	</table>
+	<!-- 이전,다음 페이지 정보 -->
+
+<script type="text/javascript">
+<!--
+// 디바이스에 맞게 이미지사이즈 조절 (※ div 태그 클래스만 적용..)
+$(function() {
+    $(".bbs_cont_img img").each(function() {
+        var oImgWidth = $(this).width();
+        var oImgHeight = $(this).height();
+        $(this).css({
+            'max-width':oImgWidth+'px',
+            'max-height':oImgHeight+'px',
+            'width':'100%',
+            'height':'100%'
+        });
+    });
+});
+//-->
+</script>

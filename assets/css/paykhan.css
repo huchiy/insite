@@ -1,0 +1,139 @@
+/** ----- paykhan.html / 페이칸 ----- **/
+
+.paykhan .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.paykhan .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.paykhan .header_table .back .img {
+     width:50%;
+}
+
+.paykhan .header_table .join {
+     padding:2% 0 2% 22%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+.paykhan .poss_div {
+     border: solid #07c1f2;
+     border-radius: 2vw;
+     margin-top: 3vw;
+     margin-left: 2vw;
+     margin-right: 2vw;
+}
+
+.paykhan .poss_han {
+     width: 96%;
+     height: 30vw;
+
+}
+
+.paykhan .poss_han .name {
+     padding-left: 3vw;
+     width: 50vw;
+}
+
+.paykhan .poss_han .poss_value {
+     padding-left: 55vw;
+}
+
+.paykhan .poss_han .btn {
+     width: 15vw;
+     background: white;
+     font-weight: bold;
+     font-size:13px;
+     color: #07c1f2;
+     border-color: #acacac;
+     border-width: 1px;
+     border-style: solid;
+     border-radius: 2vw;
+     text-align: center;
+}
+
+.paykhan .poss_han_btn {
+     padding-left: 2vw;
+     padding-right: 2vw;
+}
+
+.paykhan .poss_han_btn .btn {
+     width: 44vw;
+     background: white;
+     font-weight: bold;
+     font-size:15px;
+     color: #07c1f2;
+     border-color: #acacac;
+     border-width: 1px;
+     border-style: solid;
+     border-radius: 1vw;
+     text-align: center;
+     padding-top: 1vw;
+     padding-bottom: 1vw;
+}
+
+.paykhan .use_paykhan_div {
+     border: solid #07c1f2;
+     border-radius: 2vw;
+     margin-top: 15vw;
+     margin-left: 2vw;
+     margin-right: 2vw;
+}
+
+.paykhan .use_paykhan {
+     border-radius: 2vw;
+     width: 96%;
+     height: 30vw;
+}
+
+.paykhan .use_paykhan .name {
+     padding-left: 3vw;
+     width: 50vw;
+}
+
+.paykhan .use_paykhan .value {
+     width: 20vw;
+}
+
+.paykhan .use_paykhan .poss_value {
+     padding-left: 55vw;
+}
+
+
+/** ----- paykhan.html / 페이칸 ----- **/
+
+
+
+/** ----- paykhan_history.html / 페이칸_거래내역 ----- **/
+
+.paykhan_history .header_table {
+     background: #07c1f2;
+     width:100%;
+     border-width: 1px;
+}
+
+.paykhan_history .header_table .back {
+     width: 15%;
+     text-align: center;
+     vertical-align: middle;
+}
+
+.paykhan_history .header_table .back .img {
+     width:50%;
+}
+
+.paykhan_history .header_table .history {
+     padding:2% 0 2% 22%;
+     width: 80%;
+     font-size: 20px;
+     color:white;
+}
+
+/** ----- paykhan_history.html / 페이칸_거래내역 ----- **/

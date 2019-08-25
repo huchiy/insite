@@ -1,0 +1,309 @@
+<?
+/**
+*		리스트페이지
+*/
+
+// 보기권한
+if(!strstr($Llevel,"10/") && $Admin!="Y" && ($_SESSION[p_id] && !strstr($Llevel,"$_SESSION[p_level]/"))){	
+	alert("접근 권한이 없습니다.",$pgUp);
+}
+
+// 글쓰기권한.
+if(strstr($Wlevel,"10/") || $Admin=="Y" || ($_SESSION[p_id] && strstr($Wlevel,"$_SESSION[p_level]/")) ){
+	$WrAction="$PageURL&bbs_section=write&Ctg=$Ctg&page=$page";
+	$WrBtin="<a href='$WrAction' class='btn_red'>글쓰기</a>";
+}else {
+	//쿠킹클래스 후기 글쓰기 접근 제한
+	$WrAction="javascript:alert('해당글을 등록하실 권한이 없습니다.');";
+	$WrBtin="";
+}
+
+
+if($Ctg) $sear_char=" and category='$Ctg'";			//1차카테고리
+if ($mode=="search") {
+	if ($key&&$keyfield=="sort_num") {
+		$sear_char.="and $keyfield = '$key'";
+	}else if ($key&&$keyfield=="subcon") {
+		$sear_char.="and (subject like '%$key%' or headtext like '%$key%' or content like '%$key%')";
+	}else if ($key&&$keyfield=="subject") {
+		$sear_char.="and (subject like '%$key%' or headtext like '%$key%')";
+	}else if ($key&&$keyfield=="content") {
+		$sear_char.="and (content like '%$key%')";
+	}else if($key){
+		$sear_char.="and $keyfield like '%$key%'";
+	}
+}
+if($Admin!="Y"){$sear_char.=" and view_ck='Y' ";}	// 게시글 출력제한 사용일 경우.
+
+$bbs_query="select * from wk_bbs_{$tb_name} where (1=1) $sear_char";
+$total_record=n_rows($bbs_query);
+if(!$listNum) $listNum=6;
+$total_page=ceil($total_record/$listNum);
+if(!$page) $page=1;
+if($total_page==0){	 //총 페이지가 없을 경우.
+	$first=1;
+	$last=0;
+}else{
+	$first=($page-1)*$listNum;	 //페이지의 출력할 첫번째 레코드를 지정.
+	$last=$page*$listNum;		//다음 페이지의 출력할 첫번째 레코드 지정.
+}
+$article_num=$total_record - ($page-1)*$listNum;
+$result=query($bbs_query." order by notice asc, reg_date desc, thread asc limit $first, $listNum");
+?>
+<script type="text/javascript">
+<!--
+	// 체크삭제
+	function DelSub(tgb) {
+
+		var frm=document.ListForm;
+		var Ck="";
+		len=frm["check[]"].length;
+		if(!len){ 
+			if(frm["check[]"].checked){ Ck="Y"; }
+		}else{
+			for(i=0; i<len; i++){
+				if(frm["check[]"][i].checked){ Ck="Y"; }
+			}
+		}
+		if(Ck != "Y"){ alert("체크를 하나이상 하셔야합니다."); return false; }
+		else {
+			if(tgb=="delete"){
+				if(confirm("선택한 게시글을 삭제하시겠습니까?")){frm.submit();}
+			}else if(tgb=="Bconfig"){
+				var Cks="";	
+				for(i=0; i<len; i++){
+					if(frm["check[]"][i].checked){
+						Cks=Cks+frm["check[]"][i].value;
+						Cks=Cks+"/";
+					}
+				}
+				openWindow("{pgUp}board/board_control.php?tb_name={tb_name}&check="+Cks,"게시글관리","300","120","yes","no");
+			}			
+		}
+		
+	}
+
+	// 검색
+	function bbsSchSub() {
+		var frm=document.bbsFrm;
+		if(!frm.keyfield.value){
+			alert("검색항목을 선택하세요.");frm.keyfield.focus();return;
+		}
+		if(!frm.key.value){alert("검색어를 입력하세요.");frm.key.focus();return;}
+		frm.submit();
+	}
+//-->
+</script>
+
+  	<ul class="media_list">
+
+<?
+if($total_record!=0){
+
+for($i=0;$i<$rows=fetch_array($result) ;$i++ ){
+	$ct_nms=ct_nm_var($rows[category]);
+	$headtext=$rows[headtext]; // 말머리
+	$headtext=strcut_utf8($headtext,$sub_cut);				
+	$sub=$rows[subject]; // 제목
+	$subject=strcut_utf8($sub,$sub_cut);	
+
+//	$subject_arr = explode(']',$subject);	
+//	if($subject_arr[1]){
+//		$subject_a=$subject_arr[0]."]";
+//		$subject=$subject_arr[1];
+//	}else{
+//		$subject_a='';
+//		$subject=$subject_arr[0];
+//	}
+	if($rows[notice]=="Y"){	 // 공지글은 글번호 대신 아이콘 출력
+		if($rows[nickName]=="1"){
+			$nt_t="<span class='notice_icon'><em class='blind'>주요공지</em></span>";
+		}else if($rows[nickName]=="2"){
+			$nt_t="<span class='event_icon'><em class='blind'>특가이벤트</em></span>";
+		}else {$nt_t="";}
+		$subject="<strong>$nt_t $subject</strong>";
+		$ltNo="<img src='{$pgUp}board/images/icon_notice.gif' width='13' height='13' align='absmiddle'>";
+	}else{
+		if($keyfield=="sort_num" && $key){$ltNo=$key;}
+		else{$ltNo=$article_num;}
+	}
+
+	//본문내용
+	if($edit_ck=="Y"){//에디트 사용.
+		$contents=$rows[content];
+	}else{
+		if($rows[html] == "N"){
+			$contents=htmlspecialchars($rows[content]);
+			$contents=ereg_replace(chr(13),"<br>",$contents);
+			$contents=ereg_replace("  "," &nbsp;",$contents);
+		}else {
+			$contents=$rows[content];
+		}
+	}
+	
+	//태그제거내용
+	$cont=strip_tags($rows[content]);
+	$content_st=strcut_utf8($cont,$cnt_cut);
+
+
+	//오늘쓴글은 시간으로 오늘이 지나면 날짜로 출력.
+	$dt_ymd=substr($rows[date_tm],0,10);
+	$dt_his=substr($rows[date_tm],11,5);
+	if($dt_ymd==$date){$Dtime=$dt_his;}
+	else {$Dtime=str_replace("-",".",$dt_ymd);}
+
+	/* 오늘 등록된 글은 시간으로 오늘이전은 날짜
+	if(date("Y.m.d",$rows[reg_date]) == date("Y.m.d",time())){
+		$Dtime=date("H:i",$rows[reg_date]);
+	}else{$Dtime=date("Y.m.d",$rows[reg_date]);}*/
+
+	// 공지, 보류글 색깔
+	if($rows[notice]=="Y"){$vi_col="#fffbe8";}
+	else if($rows[view_ck]!="Y"){$vi_col="#fffbfb";}
+	else {$vi_col="";}
+
+	//비밀글.
+	if($rows[secret]=="Y"){
+		$secret_img="<img src='{$pgUp}board/images/icon_lock.gif' width='13' height='14' border='0' align='absmiddle'>";
+	}else {$secret_img="";}	
+	
+	//New아이콘 지속시간.
+	if($rows[reg_date]>=(time()-(86400*$newDay))) {
+		$new_img="&nbsp;<img src='{$pgUp}board/images/icon_new.gif' width='19' height='7' border='0' align='absmiddle'>";
+	}else {$new_img="";}
+	$Nfiles=explode("/",$rows[fileName]);
+	$Pfiles=explode("/",$rows[files]);
+
+	//파일이 있을때.	
+	if(str_replace("/","",$rows[files])){
+		$file_img="<a href='{$pgUp}files/download.php?folder=bbs_{$tb_name}&fnm=".urlencode($Nfiles[0])."&file=$Pfiles[0]'><img src='../images/data/file_add.gif' alt='첨부파일' width='16' height='21' /></a>";
+	}else {$file_img="";}		
+
+	//답변글이면 들여쓰기.
+	$spacer=strlen($rows[thread])-1;
+
+	//답변이 5개 이상이 되면 들여쓰기가 고정된다.
+	$reply_indent=5;
+	if($spacer>$reply_indent){
+		$spacer=$reply_indent;
+	}
+
+	//답변글 공백으로 들여쓰기.
+	for($i=0;$i<$spacer;$i++){
+		$spacer_view=$spacer_view."&nbsp;&nbsp;→&nbsp;";
+	}
+	if($spacer>"0"){
+		$re_icon="<img src='{$pgUp}board/images/icon_re.gif' width='29' height='12' align='absmiddle'>";
+	}
+	// 조회수
+	$hit=($rows[hit]>0)?number_format($rows[hit]):"0";
+
+	// 이미지
+	$bbs_files=explode("/",$rows[files]);
+	$img_path="{$folder}$bbs_files[0]";
+	$file_gubun=explode(".",$bbs_files[0]);
+	$file_gb=strtolower($file_gubun[1]);
+
+	// 첨부파일이 이미지가 있는경우
+	if($file_gb=="jpg" || $file_gb=="jpeg" || $file_gb=="gif" || $file_gb=="png" || $file_gb=="bmp"){
+		$up_img_url=$img_path;
+	}else {	// 에디터로 이미지 첨부했을 경우
+		$up_img_url='../images/main/sponsor_img.jpg';
+		/*$content=$rows[content];
+		$imgcon=preg_replace('@<[^<]*common/icon[^>]*>@is','',$content);
+		$pos1= stristr($imgcon,'<IMG');//첫번째 여는 이미지 태그부터 pos1에 담고 
+		$pos2= strpos($pos1,'>');//첫번째 닫는 태그의 위치를 잡는다. 
+		$img_result = stristr(substr($pos1,0,$pos2),'src');//첫번째 이미지 태그 추출결과에서 src이후 부분만 추출. 
+		$img_result=str_replace("src=","",$img_result);
+		$img_result=str_replace("\"","",$img_result);
+		if(strpos($img_result," ")){
+			$img_result = substr($img_result,0,strpos($img_result," "));//src속성 뒤의 첫번째 공백까지 추출(각 속성 사이엔 공백이 분명 있으므로...) 
+		}
+		if($img_result){$up_img_url=$img_result;}else {$up_img_url="";}*/
+	}
+
+	// 썸네일 사용시 썸네일 생성
+	if($thumb_ck=="Y" && $up_img_url){
+		$img_Name = imgName($up_img_url); //파일명
+		$path_file = "{$pgUp}files/bbs_{$tb_name}/{$img_Name}.thumb";//원본파일을 너비 정비율 리사이즈
+		if(!is_file($path_file)){	// 썸네일이 없으면
+			$a=thumnail($up_img_url, $path_file, $thumb_x, $thumb_y);			
+		}
+		if($a==true || is_file($path_file)){$up_img_url =  $path_file;}
+		else {$up_img_url=$up_img_url;}
+	}
+	if(!$up_img_url){$up_img_url="../images/main/sponsor_img.jpg";}
+
+	//리스트 파일첨부시
+	$bbs_Fname=explode("/",$rows[fileName]);
+	$bbs_add_files=explode("/",$rows[files]);
+	for($j=0;$j<sizeof($bbs_add_files) ;$j++ ){
+		$upfile_arr[$j]=array("fileN"=>$bbs_add_files[$j],
+							"fileRN"=>$bbs_Fname[$j]);
+	}
+
+	// 댓글수
+	$rp_num=bbs_cm_num_var($tb_name,$rows[idx],$Admin,$rp_view_ck);
+	if($rp_num>0){
+		$rp_num_f="<span style='color:#ff9900;'>[".number_format($rp_num)."]</span>";
+	}else {$rp_num_f="";}
+
+	//보기권한.
+	if(strstr($Vlevel,"10/") || $Admin=="Y" || ($_SESSION[p_level] && strstr($Vlevel,"$_SESSION[p_level]/"))){// 게시판 권한자만 접근
+		if($rows[secret]=="Y"){	 // 비밀글인 경우
+			if($Admin=="Y" || ($_SESSION[p_id] && ($_SESSION[p_id]==$rows[user_id]))){
+				$ViAction="$PageURL&bbs_section=view&Ctg=$Ctg&page=$page&idx=$rows[idx]";
+			}else {	// 로그아웃상태, 본인글 아닐때
+				$ViAction="$PageURL&bbs_section=pass&rt_page=$absolute_path&Ctg=$Ctg&idx=$rows[idx]&fno=$rows[fno]&thread=$rows[thread]&page=$page&pass_gb=view";
+			}			
+		}else {	// 비밀글이 아닐때
+			$ViAction="$PageURL&bbs_section=view&Ctg=$Ctg&page=$page&idx=$rows[idx]";		
+		}
+	}else {	// 권한이 없을때
+		$ViAction="javascript:alert('해당글을 볼 수 있는 권한이 없습니다.');";
+	}?>
+
+    	<li>
+      	<div class="thum_img"><a href='<?=$ViAction?>'><img src="<?=$up_img_url?>" width="280" height="195" alt="" /></a></div>
+        <dl>
+        	<dt>
+          <em><?=$headtext?></em>
+          <a href="<?=$ViAction?>"><span><?=$subject?> <?=$rp_num_f?></span></a></dt>
+          <dd><?=$Dtime?></dd>
+        </dl>
+      </li>
+
+<?$spacer_view="";
+	$re_icon="";
+	$article_num--;
+
+	}
+
+}else {
+	if($mode=="search"){$lt_msg="검색결과가 없습니다.";}
+	else {$lt_msg="데이터가 없습니다.";}?>
+
+    	<li style='width:960px; border:1px solid #E9E9E9; text-align:center; padding-top:30px;height:50px; '><?=$lt_msg?></li>
+
+<?}?>
+
+    </ul>
+		
+  <!-- <div class="board_btn"><?=$WrBtin?></div> -->
+  <?include "../include/pages.php";?>
+  
+<div class="board_search">
+<form name="bbsFrm" action="<?=$PHP_SELF?>" method="get">
+<input type="hidden" name="mode" value="search">
+<input type="hidden" name="tb_name" value="<?=$tb_name?>">
+<input type="hidden" name="Ctg" value="<?=$Ctg?>">
+<fieldset>
+	<legend>게시판 검색</legend>
+	<select id="range" title="검색범위" name="keyfield">
+		<option value="subcon">전체</option>
+		<option value="subject" <?if($keyfield=="subject"){echo"selected";}?>>제목</option>
+		<option value="content" <?if($keyfield=="content"){echo"selected";}?>>내용</option>
+	</select><input type="text" id='content' title="검색내용" name="key" value="<?=$key?>" onkeydown="ent_q('bbsSchSub()');"/><a style='cursor:pointer;' onClick="bbsSchSub();">검색</a>
+</fieldset>
+</form>
+</div>

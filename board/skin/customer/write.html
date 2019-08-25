@@ -1,0 +1,155 @@
+<?
+/**
+*		쓰기페이지
+*/
+
+// 글쓰기권한.
+//if(!$_SESSION[p_id] && !strstr($Wlevel,"10/") && $Admin!="Y" && !strstr($Wlevel,"$_SESSION[p_level]/")){
+//	alert("접근 권한이 없습니다.",$pgUp);
+//}
+if(strstr($Wlevel,"10/") || $Admin=="Y" || ($_SESSION[p_id] &&  strstr($Wlevel,"$_SESSION[p_level]/"))){}
+else {alert("접근 권한이 없습니다.",$pgUp);}
+
+if($idx && ($ps_ck=="Y" || $_SESSION["p_level"]==1)){
+
+	$Wrows=f_array("select * from wk_bbs_{$tb_name} where idx='$idx'");	
+	$category=$Wrows[category];
+	$userName=$Wrows[user_name];
+	$userEmail=$Wrows[email];
+	$r_date=$Wrows[r_date];
+	$userPass=$Wrows[pwd];
+	$bbs_Fname=explode("/",$Wrows[fileName]);
+	$bbs_files=explode("/",$Wrows[files]);
+	$bbs_files_cmt=explode("/%|789512364|%/",$Wrows[files_comment]);
+	$Query="update";
+
+}else {
+
+	$userName=$MB_arr[user_name];
+	$userEmail=$MB_arr[email];
+	$userPass=$MB_arr[pwd];
+	$Query="insert";
+
+}
+
+
+//답변글
+if($Aidx){
+	$Mody_arr=f_array("select * from wk_bbs_{$tb_name} where idx='$Aidx'");
+}
+
+//리스트페이지이동.
+$LiAction="$PageURL&bbs_section=list&page=$page&Ctg=$Ctg";
+?>
+
+<script language="JavaScript">
+<!--
+	function write_sub() {
+
+		var frm=document.bbs_frm;
+
+	<?if($category_ck=="Y"){?>
+			if(!frm.category.value){alert("카테고리를 선택하세요.");frm.category.focus();return;}
+	<?}?>
+
+<?if(!$_SESSION[p_id]){?>
+		if(!frm.user_name.value){alert("작성자를 입력하세요.");frm.user_name.focus();return;}
+		if(!frm.pwd.value){alert("비밀번호를 입력하세요.");frm.pwd.focus();return;}
+<?}?>
+
+		if(!frm.subject.value){alert("제목을 입력하세요.");frm.subject.focus();return;}
+
+		// 에디터의 내용이 textarea에 적용된다.
+		//oEditors.getById["se_editor1"].exec("UPDATE_CONTENTS_FIELD", []);
+		
+		frm.submit();
+
+	}
+//-->
+</script>
+
+	<form name="bbs_frm" action="<?=$pgUp?>board/bbs_ok.php" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="Query" value="<?=$Query?>">
+	<input type="hidden" name="rt_page" value="<?=$PHP_SELF?>">
+	<input type="hidden" name="tb_name" value="<?=$tb_name?>">
+	<input type="hidden" name="Ctg" value="<?=$Ctg?>">
+	<input type="hidden" name="idx" value="<?=$Wrows["idx"]?>">
+	<input type="hidden" name="fno" value="<?=$fno?>">
+	<input type="hidden" name="thread" value="<?=$thread?>">
+	<input type="hidden" name="Aidx" value="<?=$Aidx?>">
+	<input type="hidden" name="page" value="<?=($idx) ? $page : "";?>">
+  <div class="together_write">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="리텍뉴스" class="table_st01">
+  	<caption>게시글 작성</caption>
+	<colgroup>
+		<col width="15%"/>
+		<col width="35%"/>
+		<col width="15%"/>
+		<col width="35%"/>
+	</colgroup>
+	<tr>
+		<!-- <th scope="row">문의구분</th>
+		<td>
+			<select name="q_gubun" id="q_gubun" style="width:96%">
+				<option value="구매문의" <?if($Wrows[q_gubun]=='구매문의'){echo"selected";}?>>구매문의</option>
+				<option value="제품사용" <?if($Wrows[q_gubun]=='제품사용'){echo"selected";}?>>제품사용</option>
+				<option value="제품구매" <?if($Wrows[q_gubun]=='제품구매'){echo"selected";}?>>제품구매</option>
+				<option value="제품고장" <?if($Wrows[q_gubun]=='제품고장'){echo"selected";}?>>제품고장</option>
+				<option value="기타" <?if($Wrows[q_gubun]=='기타'){echo"selected";}?>>기타</option>
+			</select>			
+		</td> -->
+<?if($category_ck=="Y"){?>
+		<th>문의구분</th>
+		<td class="last">
+		<select name="category" style="width:96%">
+			<option value="">선택하세요</option>
+	<?while ($ct_rows=fetch_array($ct_result)) {?>
+			<option value="<?=$ct_rows[idx];?>" <?if($Ctg==$ct_rows[idx]){echo"selected";}?>><?=$ct_rows[ct_name]?></option>
+	<?}?>
+		</select>		
+		</td>
+<?}?>
+		<th scope="row">이메일</th>
+		<td><input type="text" name='email' style="width:96%"/></td>
+	</tr>
+	<tr>
+		<th scope="row">작성자</th>
+		<td><input type="text" name="user_name" style="width:96%"/></td>
+		<th scope="row">연락처</th>
+		<td><input type="text" name='hp' style="width:96%"/></td>
+		<!-- <td><select name='hp1' style="width:22%">
+		<option>선택</option>
+		<option value='010'>010</option>
+		<option value='011'>011</option>
+		<option value='016'>016</option>
+		<option value='018'>018</option>
+		<option value='019'>019</option>
+		</select>
+		<input type="text" name='hp2' style="width:30%"/> <input type="text" name='hp3' style="width:30%"/></td> -->
+	</tr>
+	<tr>
+      <th scope="row"><label for="title">제목</label></th>
+      <td colspan="3"><input type="text" name="subject" value="<?=$Wrows[subject]?>" id="title" style="width:96%"/></td>
+    </tr> 	
+    <tr>
+      <td style="padding-top:10px;" id="con_area" colspan='4'><textarea name="content" style="min-width:300px;width:100%;height:300px;"><?=$Wrows[content];?></textarea></td>
+    </tr>
+<?if($fileNum>0){?>
+
+	<tr>
+		<th>파일</th>
+		<td class="last" colspan="3">
+	<?for($i=1;$i<$fileNum ;$i++ ){?>
+		<input type="hidden" name="fileN<?=$i?>" value="<?=$bbs_files[$i]?>">
+		<input type="hidden" name="fileRN<?=$i?>" value="<?=$bbs_Fname[$i]?>">
+		<input name="up_file<?=$i?>" type="file" style="width:70%;height:25px;"> <?if($bbs_files[$i]){?><?=$bbs_Fname[$i]?>&nbsp;<input type="checkbox" name="del_file[<?=$i?>]" value="<?=$bbs_Fname[$i]?>///<?=$bbs_files[$i]?>" style="border:0; vertical-align:middle;">삭제<?}?>
+	<?}?>		
+		</td>
+	</tr>
+
+<?}?>
+  </table>
+  </div>
+  
+  <div class="board_btn"><a href="javascript:write_sub();" class="btn_red" style='min-width:100px;'>문의하기</a></div>
+	</form>

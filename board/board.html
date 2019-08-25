@@ -1,0 +1,32 @@
+<?
+include "bbs_cf.php";
+/*
+	JY_solution 게시판
+*/
+
+/*
+$titleN=urlencode($titleN);
+$keyfield=urlencode($keyfield);
+$key=urlencode($key);
+$Ctg=urlencode($Ctg);
+$addrSort=urlencode($addrSort);
+$sphereSort=urlencode($sphereSort);
+$dutySort=urlencode($dutySort);
+$addressSort=urlencode($addressSort);
+$priceSort=urlencode($priceSort);
+$schoolSort=urlencode($schoolSort);
+$dateSort=urlencode($dateSort);
+*/
+//$PageURL="$PHP_SELF?tb_name=$tb_name";
+?>
+
+<table border="0" width="<?=$table_width?>" cellpadding="0" cellspacing="0">
+<tr>
+	<td>
+	<?
+		if($bbs_section) include $skinDir.$bbs_section.".html";
+		else include $skinDir."list.html";
+	?>
+	</td>
+</tr>
+</table>

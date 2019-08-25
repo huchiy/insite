@@ -1,0 +1,45 @@
+
+
+
+/*--------------------------------------------------------*/
+/*		NAV
+/*--------------------------------------------------------*/
+
+html, body {overflow-x: hidden; min-width: 320px;}
+#header nav {display:none;}
+#titleBar {-moz-backface-visibility: hidden; -webkit-backface-visibility: hidden; -ms-backface-visibility: hidden; backface-visibility: hidden; -moz-transition: -moz-transform 0.3s ease;
+-webkit-transition: -webkit-transform 0.3s ease; -ms-transition: -ms-transform 0.3s ease; transition: transform 0.3s ease; display: block; position: fixed; top: 0; left: 0; width: 100%; z-index: 10001;}
+#titleBar .title {display:none;}
+#titleBar .toggle {text-decoration:none;width:46px;height:38px;text-align:center;position:absolute;top:8px;left:8px;background-color:rgba(71,78,103,0.35);border-radius:3px;}
+#titleBar .toggle:hover{background-color:rgba(71,78,103,0.75);}
+#titleBar .toggle:before { content: '\e002'; font-family: 'intaeFont'; display: inline-block; font-size: 20px; font-weight:normal; line-height: 34px; color: #fff; }
+#navPanel {
+	-moz-backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-moz-transform: translateX(-280px);
+	-webkit-transform: translateX(-280px);
+	-ms-transform: translateX(-280px);
+	transform: translate X(-280px);
+	-moz-transition: -moz-transform 0.3s ease;
+	-webkit-transition: -webkit-transform 0.3s ease;
+	-ms-transition: -ms-transform 0.3s ease;
+	transition: transform 0.3s ease;
+	display: block;
+	height: 100%;
+	left: 0;
+	overflow-y: auto;
+	position: fixed;
+	top: 0;
+	width: 280px;
+	z-index: 10002;
+	}
+body.navPanel-visible #page-wrapper { -moz-transform: translateX(280px); -webkit-transform: translateX(280px); -ms-transform: translateX(280px); transform: translateX(280px); }
+body.navPanel-visible #titleBar { -moz-transform: translateX(280px); -webkit-transform: translateX(280px); -ms-transform: translateX(280px); transform: translateX(280px); }
+body.navPanel-visible #navPanel { -moz-transform: translateX(0); -webkit-transform: translateX(0); -ms-transform: translateX(0); transform: translateX(0); }
+#page-wrapper {-moz-backface-visibility:hidden;-webkit-backface-visibility:hidden;-ms-backface-visibility:hidden;backface-visibility:hidden;-moz-transition:-moz-transform 0.3s ease;-webkit-transition:-webkit-transform 0.3s ease;
+-ms-transition:-ms-transform 0.3s ease;transition: transform 0.3s ease;}
+
+
+body #page-wrapper {position:relative;}

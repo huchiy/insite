@@ -1,0 +1,34 @@
+<?
+/*
+*	delete.php
+*	게시판 비밀번호 확인 페이지
+*/
+if($p_id){go($pgUp);}
+
+$LiAction="$PageURL&bbs_section=list&Ctg=$Ctg&page=$page";
+//echo $LiAction;?>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	function delete_sub() {
+		var frm=document.delete_frm;
+		if(!frm.pwd.value){alert("비밀번호를 입력하세요.");frm.pwd.focus();return;}
+		frm.submit();
+	}
+//-->
+</SCRIPT>
+
+	<p style="text-align:center;padding:50px 0 20px 0;">글쓴이와 관리자만 접근 가능합니다.<br>글등록시 기재한 비밀번호를 입력해주세요.</p>
+
+	<FORM METHOD=POST ACTION="<?=$pgUp?>board/bbs_ok.php" name="delete_frm" target="db_frame">
+	<input type="hidden" name="rt_page" value="<?=$PHP_SELF?>">
+	<input type="hidden" name="tb_name" value="<?=$tb_name?>">
+	<input type="hidden" name="Ctg" value="<?=$Ctg?>">
+	<input type="hidden" name="idx" value="<?=$idx?>">
+	<input type="hidden" name="page" value="<?=$page?>">
+	<input type="hidden" name="Query" value="<?=$pass_gb?>">
+	<input type="hidden" name="bbs_section" value="<?=$pass_gb?>">
+	<div style="text-align:center;">
+	<input name="pwd" type="password" size="15" value="" style="height:26px; line-height:26px; border:solid 1px #e4e4e4; padding-left:10px;"> <a href="javascript:delete_sub();" style="display:inline-block; width:100px; height:28px; line-height:28px; font-weight:600; color:#FFF; text-align:center; background:#f78105;">확인</a> <A HREF="<?=$LiAction?>" style="display:inline-block; width:100px; height:28px; line-height:28px; font-weight:600; color:#FFF; text-align:center; background:#bfbebe;">리스트</A>
+	</div>
+	</FORM>
+	<p style="padding:100px;">&nbsp;</p>
