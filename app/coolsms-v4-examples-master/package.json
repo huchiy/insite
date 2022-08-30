@@ -11,6 +11,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "coolsms-sdk-v4": "^4.0.11",
-    "moment-timezone": "^0.5.21"
+    "moment-timezone": "^0.5.35"
   }
 }
